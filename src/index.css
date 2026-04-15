@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-canvas text-slate-100 font-body antialiased;
+    background-image:
+      radial-gradient(at 20% 10%, rgba(139,92,246,0.12) 0px, transparent 50%),
+      radial-gradient(at 80% 90%, rgba(16,185,129,0.06) 0px, transparent 50%);
+    min-height: 100vh;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-ink-700 rounded-full; }
+
+  /* Firefox scrollbar fallback */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #5b21b6 transparent;
+  }
+
+  ::selection { @apply bg-ink-500/40 text-white; }
+}
+
+@layer components {
+
+  /* Glass card */
+  .glass {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Palette block pill */
+  .palette-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl cursor-grab
+           border border-white/[0.08] bg-white/[0.04]
+           hover:bg-ink-600/20 hover:border-ink-500/40
+           transition-all duration-150 select-none;
+  }
+  .palette-item:active { @apply cursor-grabbing; }
+
+  /* Canvas block */
+  .canvas-block {
+    @apply relative rounded-2xl border border-white/[0.08] bg-white/[0.04]
+           shadow-block transition-all duration-200;
+  }
+
+  .canvas-block:hover {
+    @apply border-ink-500/30 shadow-block-hover;
+  }
+
+  .canvas-block.drag-over {
+    @apply border-ink-400/60 bg-ink-500/10;
+    box-shadow: 0 0 0 2px rgba(139,92,246,0.4), 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .canvas-block.dragging {
+    @apply opacity-50 scale-[0.98];
+    pointer-events: none;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply text-transparent bg-clip-text;
+    background-image: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #10b981 100%);
+  }
+
+  /* Shimmer */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.03) 25%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s linear infinite;
+  }
+
+  /* Block type badge */
+  .type-badge {
+    @apply px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold uppercase tracking-wider;
+  }
+
+  /* Editable content area */
+  .editable {
+    @apply outline-none w-full bg-transparent resize-none;
+  }
+
+  .editable:focus {
+    @apply ring-1 ring-ink-500/40 rounded;
+  }
+
+  /* Toolbar button */
+  .toolbar-btn {
+    @apply w-8 h-8 rounded-lg flex items-center justify-center
+           text-slate-500 hover:text-white hover:bg-white/10
+           transition-all duration-150;
+  }
+
+  /* Drop zone highlight */
+  .drop-active {
+  @apply border-ink-400/50 bg-ink-500/[0.08];
+  box-shadow: inset 0 0 30px rgba(139,92,246,0.08);
+}
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Markdown rendered output styles ──────────────────────────────────────── */
+.markdown-body .md-h1  { @apply text-2xl font-display font-black text-white mb-3 mt-5 leading-tight; }
+.markdown-body .md-h2  { @apply text-xl font-display font-bold text-white mb-2 mt-4 leading-tight; }
+.markdown-body .md-h3  { @apply text-lg font-display font-semibold text-slate-100 mb-2 mt-3; }
+.markdown-body .md-h4  { @apply text-base font-semibold text-slate-200 mb-1 mt-2; }
+.markdown-body .md-p   { @apply text-slate-300 text-sm leading-relaxed mb-3; }
+.markdown-body .md-bold{ @apply font-bold text-white; }
+.markdown-body .md-em  { @apply italic text-slate-200; }
+.markdown-body .md-code{ @apply font-mono text-xs bg-ink-500/20 text-ink-300 px-1.5 py-0.5 rounded; }
+
+.markdown-body .md-pre  {
+  @apply bg-black/40 border border-white/[0.08] rounded-xl p-4 my-3 overflow-x-auto;
+}
+.markdown-body .md-pre code {
+  @apply font-mono text-xs text-slate-300 bg-transparent p-0;
+}
+
+.markdown-body .md-ul  { @apply list-none space-y-1 mb-3 pl-0; }
+.markdown-body .md-ol  { @apply list-decimal pl-5 space-y-1 mb-3; }
+
+.markdown-body .md-li  {
+  @apply text-slate-300 text-sm leading-relaxed flex items-start gap-2;
+}
+.markdown-body .md-li::before {
+  content: '▸';
+  @apply text-ink-400 flex-shrink-0 text-xs mt-0.5;
+}
+
+.markdown-body .md-oli { @apply text-slate-300 text-sm leading-relaxed; }
+
+.markdown-body .md-quote {
+  @apply border-l-2 border-ink-400 pl-4 py-1 my-3 text-slate-400 italic text-sm;
+}
+
+.markdown-body .md-hr  { @apply border-white/10 my-4; }
+
+.markdown-body .md-link {
+  @apply text-ink-400 underline underline-offset-2 hover:text-ink-300 transition-colors;
+}
