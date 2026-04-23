@@ -13,9 +13,9 @@
 
 ## 🔗 Live Demo
 
-> 🔴 Live: [https://data-explorer-pro.vercel.app](https://dynamic-conten.vercel.app/)
+> 🔴 Live: [https://dynamic-conten.vercel.app/](https://dynamic-conten.vercel.app/)
 
-> 🟢 Source Code: [https://github.com/your-username/data-explorer-pro](https://github.com/nikhilandc/dynamic-conten)
+> 🟢 Source Code: [https://github.com/nikhilandc/dynamic-conten](https://github.com/nikhilandc/dynamic-conten)
 
 > Deploy in under 2 minutes — see [Deployment](#-deployment) below.
 
